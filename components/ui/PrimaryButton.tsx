@@ -1,17 +1,19 @@
 import { PropsWithChildren } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View, ViewStyle } from "react-native";
 import Colors from "../../constants/colors";
 
 interface PrimaryButtonProperties {
   onPress: () => void;
+  style?: ViewStyle;
 }
 
 export default function PrimaryButton({
   children,
   onPress,
+  style,
 }: PropsWithChildren<PrimaryButtonProperties>) {
   return (
-    <View style={styles.buttonOuterContainer}>
+    <View style={[styles.buttonOuterContainer, style]}>
       <Pressable
         style={({ pressed }) =>
           pressed
