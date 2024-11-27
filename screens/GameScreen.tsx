@@ -3,6 +3,7 @@ import Title from "../components/ui/Title";
 import { useEffect, useRef, useState } from "react";
 import NumberContainer from "../components/game/NumberContainer";
 import PrimaryButton from "../components/ui/PrimaryButton";
+import Card from "../components/ui/Card";
 
 interface GameScreenProperties {
   userNumber: number;
@@ -63,15 +64,21 @@ export default function GameScreen({
     <View style={styles.screen}>
       <Title>Opponent's Guess</Title>
       <NumberContainer>{currentGuess}</NumberContainer>
-      <View>
-        <Text>Higher or lower?</Text>
-        <PrimaryButton onPress={() => nextGuessHandler("lower")}>
-          -
+      <Card title="Higher or lower?" style={styles.card}>
+        <PrimaryButton
+          style={styles.button}
+          onPress={() => nextGuessHandler("lower")}
+        >
+          <Text style={styles.buttonText}>-</Text>
         </PrimaryButton>
-        <PrimaryButton onPress={() => nextGuessHandler("greater")}>
-          +
+        <PrimaryButton
+          style={styles.button}
+          onPress={() => nextGuessHandler("greater")}
+        >
+          <Text style={styles.buttonText}>+</Text>
         </PrimaryButton>
-      </View>
+      </Card>
+
       {/* <View>LOG ROUNDS</View> */}
     </View>
   );
@@ -81,6 +88,15 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 24,
-    marginTop: 50,
+    marginTop: 30,
+  },
+  card: {
+    flexDirection: "row",
+  },
+  button: {
+    flex: 1,
+  },
+  buttonText: {
+    fontSize: 20,
   },
 });

@@ -2,6 +2,8 @@ import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
 import PrimaryButton from "../components/ui/PrimaryButton";
 import { useState } from "react";
 import Colors from "../constants/colors";
+import Title from "../components/ui/Title";
+import Card from "../components/ui/Card";
 
 interface StartGameScreenProperties {
   onSelectNumber: (selectedNumber: string) => void;
@@ -37,38 +39,33 @@ export default function StartGameScreen({
   }
 
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        style={styles.numberInput}
-        maxLength={2}
-        keyboardType="number-pad"
-        onChangeText={numberInputHandler}
-        value={enteredNumber}
-      />
-      <View style={styles.buttonsContainer}>
-        <View style={styles.buttonContainer}>
-          <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
+    <View style={styles.screenContainer}>
+      <Title>Guess My Number</Title>
+      <Card title="Enter a Number">
+        <TextInput
+          style={styles.numberInput}
+          maxLength={2}
+          keyboardType="number-pad"
+          onChangeText={numberInputHandler}
+          value={enteredNumber}
+        />
+        <View style={styles.buttonsContainer}>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
+          </View>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
+          </View>
         </View>
-        <View style={styles.buttonContainer}>
-          <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
-        </View>
-      </View>
+      </Card>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  inputContainer: {
+  screenContainer: {
     marginTop: 100,
-    marginHorizontal: 24,
-    padding: 16,
-    backgroundColor: Colors.primary800,
-    borderRadius: 8,
-    elevation: 8,
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 6,
-    shadowOpacity: 0.25,
+    gap: 34,
     alignItems: "center",
   },
   numberInput: {
