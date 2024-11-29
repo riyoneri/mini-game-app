@@ -4,10 +4,15 @@ import { useEffect, useRef, useState } from "react";
 import NumberContainer from "../components/game/NumberContainer";
 import PrimaryButton from "../components/ui/PrimaryButton";
 import Card from "../components/ui/Card";
+import { Guess } from "../App";
+import GuessList from "../components/game/Guess/GuessList";
+import { Ionicons } from "@expo/vector-icons";
 
 interface GameScreenProperties {
   userNumber: number;
   onGameOver: () => void;
+  onAddGuess: (guessedValue: string) => void;
+  allGuess: Guess[];
 }
 
 function generateRandomBetween(min: number, max: number, exclude: number) {
@@ -20,16 +25,14 @@ function generateRandomBetween(min: number, max: number, exclude: number) {
 
 export default function GameScreen({
   userNumber,
+  onAddGuess,
   onGameOver,
+  allGuess,
 }: GameScreenProperties) {
   const minBoundary = useRef(1);
   const maxBoundary = useRef(100);
 
-  const initialGuess = generateRandomBetween(
-    minBoundary.current,
-    maxBoundary.current,
-    userNumber
-  );
+  const initialGuess = generateRandomBetween(1, 100, userNumber);
 
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
 
@@ -51,6 +54,8 @@ export default function GameScreen({
     if (direction === "lower") maxBoundary.current = currentGuess;
     else minBoundary.current = currentGuess + 1;
 
+    onAddGuess(String(currentGuess));
+
     const nextGuess = generateRandomBetween(
       minBoundary.current,
       maxBoundary.current,
@@ -69,17 +74,16 @@ export default function GameScreen({
           style={styles.button}
           onPress={() => nextGuessHandler("lower")}
         >
-          <Text style={styles.buttonText}>-</Text>
+          <Ionicons name="remove" size={30} />
         </PrimaryButton>
         <PrimaryButton
           style={styles.button}
           onPress={() => nextGuessHandler("greater")}
         >
-          <Text style={styles.buttonText}>+</Text>
+          <Ionicons name="add" size={30} />
         </PrimaryButton>
       </Card>
-
-      {/* <View>LOG ROUNDS</View> */}
+      <GuessList allGuess={allGuess} />
     </View>
   );
 }
@@ -95,8 +99,5 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
-  },
-  buttonText: {
-    fontSize: 20,
   },
 });

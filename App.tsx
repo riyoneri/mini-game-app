@@ -6,13 +6,26 @@ import GameScreen from "./screens/GameScreen";
 import Colors from "./constants/colors";
 import GameOverScreen from "./screens/GameOverScreen";
 
+export interface Guess {
+  id: string;
+  value: string;
+}
+
 export default function App() {
   const [userNumber, setUserNumber] = useState("");
   const [gameIsOver, setGameIsOver] = useState(true);
+  const [guessedNumbers, setGuessedNumbers] = useState<Guess[]>([]);
 
   function pickedNumberHandler(pickedNumber: string) {
     setUserNumber(pickedNumber);
     setGameIsOver(false);
+  }
+
+  function addGuessHandler(guessedValue: string) {
+    setGuessedNumbers((previousGuessedNumbers) => [
+      ...previousGuessedNumbers,
+      { id: `${previousGuessedNumbers.length + 1}`, value: guessedValue },
+    ]);
   }
 
   let screen = <StartGameScreen onSelectNumber={pickedNumberHandler} />;
@@ -22,6 +35,8 @@ export default function App() {
       <GameScreen
         userNumber={Number(userNumber)}
         onGameOver={() => setGameIsOver(true)}
+        onAddGuess={addGuessHandler}
+        allGuess={guessedNumbers}
       />
     );
 
