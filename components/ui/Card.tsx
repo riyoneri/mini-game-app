@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
   title: {
     color: Colors.accent500,
     fontSize: 25,
+    fontFamily: "open-sans",
   },
   children: {
     alignItems: "center",
