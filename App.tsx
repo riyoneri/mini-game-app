@@ -59,7 +59,14 @@ export default function App() {
       />
     );
 
-  if (userNumber && gameIsOver) screen = <GameOverScreen />;
+  if (userNumber && gameIsOver)
+    screen = (
+      <GameOverScreen
+        roundsNumber={guessedNumbers.length}
+        onStartNewGame={() => {}}
+        userNumber={Number(userNumber)}
+      />
+    );
 
   if (!isFontLoaded) return null;
 
