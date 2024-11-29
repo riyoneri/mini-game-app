@@ -1,20 +1,29 @@
 import { ImageBackground, SafeAreaView, StyleSheet, View } from "react-native";
 import StartGameScreen from "./screens/StartGameScreen";
 import { LinearGradient } from "expo-linear-gradient";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import GameScreen from "./screens/GameScreen";
 import Colors from "./constants/colors";
 import GameOverScreen from "./screens/GameOverScreen";
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 
 export interface Guess {
   id: string;
   value: string;
 }
 
+SplashScreen.preventAutoHideAsync();
+
 export default function App() {
   const [userNumber, setUserNumber] = useState("");
   const [gameIsOver, setGameIsOver] = useState(true);
   const [guessedNumbers, setGuessedNumbers] = useState<Guess[]>([]);
+
+  const [isFontLoaded] = useFonts({
+    "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
+    "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
+  });
 
   function pickedNumberHandler(pickedNumber: string) {
     setUserNumber(pickedNumber);
@@ -26,6 +35,16 @@ export default function App() {
       ...previousGuessedNumbers,
       { id: `${previousGuessedNumbers.length + 1}`, value: guessedValue },
     ]);
+  }
+
+  const onLayoutRootView = useCallback(() => {
+    if (isFontLoaded) {
+      SplashScreen.hide();
+    }
+  }, [isFontLoaded]);
+
+  if (!isFontLoaded) {
+    return null;
   }
 
   let screen = <StartGameScreen onSelectNumber={pickedNumberHandler} />;
@@ -42,10 +61,13 @@ export default function App() {
 
   if (userNumber && gameIsOver) screen = <GameOverScreen />;
 
+  if (!isFontLoaded) return null;
+
   return (
     <LinearGradient
       colors={[Colors.primary700, Colors.accent500]}
       style={styles.rootScreen}
+      onLayout={onLayoutRootView}
     >
       <ImageBackground
         source={require("./assets/images/background.png")}
