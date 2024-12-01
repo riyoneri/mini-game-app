@@ -3,15 +3,14 @@ import {
   Image,
   ScrollView,
   StyleSheet,
-  StyleSheetProperties,
   Text,
   useWindowDimensions,
   View,
   ViewStyle,
 } from "react-native";
+import PrimaryButton from "../components/ui/PrimaryButton";
 import Title from "../components/ui/Title";
 import Colors from "../constants/colors";
-import PrimaryButton from "../components/ui/PrimaryButton";
 
 interface GameOverScreenProperties {
   roundsNumber: number;
@@ -77,9 +76,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   imageContainer: {
-    // width: deviceWidth < 380 ? 150 : 300,
-    // height: deviceWidth < 380 ? 150 : 300,
-    // borderRadius: deviceWidth < 380 ? 75 : 150,
     borderColor: Colors.primary800,
     borderWidth: 3,
     overflow: "hidden",
