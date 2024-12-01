@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 16,
     gap: 30,
+    width: "100%",
   },
   listContent: { gap: 15 },
 });
