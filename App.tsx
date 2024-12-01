@@ -32,9 +32,14 @@ export default function App() {
 
   function addGuessHandler(guessedValue: string) {
     setGuessedNumbers((previousGuessedNumbers) => [
-      ...previousGuessedNumbers,
       { id: `${previousGuessedNumbers.length + 1}`, value: guessedValue },
+      ...previousGuessedNumbers,
     ]);
+  }
+
+  function startNewGameHandler() {
+    setUserNumber("");
+    setGuessedNumbers([]);
   }
 
   const onLayoutRootView = useCallback(() => {
@@ -63,7 +68,7 @@ export default function App() {
     screen = (
       <GameOverScreen
         roundsNumber={guessedNumbers.length}
-        onStartNewGame={() => {}}
+        onStartNewGame={startNewGameHandler}
         userNumber={Number(userNumber)}
       />
     );

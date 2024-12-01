@@ -25,7 +25,7 @@ export default function GameOverScreen({
       </View>
       <Text style={styles.summaryText}>
         You phone needed <Text style={styles.highlight}>{roundsNumber}</Text>{" "}
-        rounds to gues the number{" "}
+        rounds to guess the number{" "}
         <Text style={styles.highlight}>{userNumber}</Text>.
       </Text>
       <PrimaryButton onPress={onStartNewGame}>Start New Game</PrimaryButton>
