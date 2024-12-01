@@ -1,7 +1,6 @@
-import { View, TextInput, Text, StyleSheet, ViewStyle } from "react-native";
-import PrimaryButton from "./PrimaryButton";
-import Colors from "../../constants/colors";
 import { PropsWithChildren } from "react";
+import { StyleSheet, Text, View, ViewStyle } from "react-native";
+import Colors from "../../constants/colors";
 
 interface CardProperties {
   title: string;
